@@ -77,8 +77,8 @@ class APITrackerData:
         expected_fields = {'imei', 'heartTime', 'online', 'lon', 'lat', 'speed', 'carId'}
         self.extra_data = {k: v for k, v in kwargs.items() if k not in expected_fields}
         
-        if self.extra_data:
-            logger.info(f"Extra fields from API: {list(self.extra_data.keys())}")
+        # if self.extra_data:
+        #     logger.info(f"Extra fields from API: {list(self.extra_data.keys())}")
 
     @classmethod
     def from_api_response(cls, data: Dict[str, Any]):
@@ -312,7 +312,7 @@ class WhatsGPSTrackerUpdater:
         start_time = f"{date_str} 00:00:00"
         end_time = f"{date_str} 23:59:59"
         
-        logger.info(f"Target date range: {start_time} to {end_time}")
+        #logger.info(f"Target date range: {start_time} to {end_time}")
         return start_time, end_time
 
     async def fetch_mileage_data_from_api(self, car_id: str) -> Optional[MileageData]:
