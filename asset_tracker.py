@@ -328,7 +328,7 @@ class WhatsGPSTrackerUpdater:
             'endTime': end_time
         }
 
-        logger.info(f"Fetching mileage data for carId {car_id} ({start_time} to {end_time})...")
+        #logger.info(f"Fetching mileage data for carId {car_id} ({start_time} to {end_time})...")
         
         try:
             async with self.session.get(url, params=params) as response:
@@ -367,7 +367,7 @@ class WhatsGPSTrackerUpdater:
     def process_mileage_response(self, mileage_data_array: List[Dict], car_id: str) -> Optional[MileageData]:
         """Process mileage API response and calculate total for target day"""
         if not mileage_data_array or not isinstance(mileage_data_array, list):
-            logger.info(f"No mileage data found for carId {car_id}")
+            #logger.info(f"No mileage data found for carId {car_id}")
             return None
 
         # Get target date
@@ -377,13 +377,13 @@ class WhatsGPSTrackerUpdater:
         target_date_entries = [item for item in mileage_data_array if item.get('day') == target_date_str]
         
         if not target_date_entries:
-            logger.info(f"No mileage data found for target date ({target_date_str}) for carId {car_id}")
+            #logger.info(f"No mileage data found for target date ({target_date_str}) for carId {car_id}")
             return None
         
         # Sum up all mileage entries for target day
         total_mileage = sum(entry.get('mileage', 0) for entry in target_date_entries)
         
-        logger.info(f"Found {len(target_date_entries)} mileage entries for {target_date_str} for carId {car_id}: Total = {total_mileage} miles")
+        #logger.info(f"Found {len(target_date_entries)} mileage entries for {target_date_str} for carId {car_id}: Total = {total_mileage} miles")
         
         return MileageData(
             mileage=total_mileage,
@@ -449,11 +449,11 @@ class WhatsGPSTrackerUpdater:
                     ])
 
             mileage_info = f", Mileage: {mileage}" if mileage is not None else ''
-            logger.info(f"Inserted history data for tracker {tracker_data.imei}: {online_status} (Date: {self.target_date.date()}{mileage_info})")
+            #logger.info(f"Inserted history data for tracker {tracker_data.imei}: {online_status} (Date: {self.target_date.date()}{mileage_info})")
             return True
             
         except Exception as e:
-            logger.error(f"Failed to insert history data for tracker {tracker_data.imei}: {str(e)}")
+            #logger.error(f"Failed to insert history data for tracker {tracker_data.imei}: {str(e)}")
             return False
 
     async def process_trackers(self) -> Dict[str, int]:
